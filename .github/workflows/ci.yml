@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.10", "3.11", "3.12", "3.13" ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile check
+        run: python3 -m compileall -q certwatch
+
+      - name: Jalankan test (tanpa jaringan)
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Smoke test — host tidak ada harus lapor rapi, bukan crash
+        run: |
+          set -e
+          printf 'tidak-ada.invalid\n' > /tmp/targets.txt
+          python3 -m certwatch --file /tmp/targets.txt --state /tmp/state.json \
+            --out reports --format json,csv --quiet || true
+          python3 - <<'PY'
+          import json, glob
+          data = json.load(open(glob.glob('reports/certwatch-*.json')[0]))
+          assert data['summary']['ERROR'] == 1, data['summary']
+          assert data['changes'][0]['kind'] == 'baru'
+          print('smoke OK:', data['worst'])
+          PY
+
+      - name: Cek sertifikat nyata (best effort, tidak menggagalkan CI)
+        continue-on-error: true
+        run: python3 -m certwatch example.com --warn-days 7 --quiet

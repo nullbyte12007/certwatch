@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Laporan memuat daftar host internal — jangan di-commit
+reports/
+certwatch-*.txt
+certwatch-*.md
+certwatch-*.json
+certwatch-*.csv
+state.json
+
+# Daftar target biasanya memuat hostname internal
+targets.txt
+targets.local.txt
+
+*.log
+.DS_Store
+.idea/
+.vscode/
