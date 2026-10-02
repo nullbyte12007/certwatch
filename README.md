@@ -6,7 +6,7 @@ Sertifikat yang kedaluwarsa adalah salah satu penyebab outage paling memalukan â
 mudah dicegah. `certwatch` memberi peringatan jauh sebelum tanggal merah, dan memberi tahu
 kalau sertifikat berubah di luar perkiraan.
 
-[![CI](https://github.com/nullbyte12007/certwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/nullbyte12007/certwatch/actions/workflows/ci.yml)
+[![CI](https://github.com/myusufcs/certwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/myusufcs/certwatch/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Zero deps](https://img.shields.io/badge/dependencies-none-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -46,7 +46,7 @@ dan `--notify` bisa langsung mengirim peringatan ke WhatsApp/Telegram/Slack.
 Zero dependency â€” cukup standard library Python 3.10+ (memakai modul `ssl` bawaan).
 
 ```bash
-git clone https://github.com/nullbyte12007/certwatch
+git clone https://github.com/myusufcs/certwatch
 cd certwatch
 
 python3 -m certwatch example.com github.com          # host langsung
